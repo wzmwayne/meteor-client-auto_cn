@@ -63,10 +63,14 @@ import org.jetbrains.annotations.Range;
 import org.joml.Matrix4f;
 import org.joml.Vector3d;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -86,7 +90,31 @@ public class Utils {
 
     private static final ProjectionMatrixBuffer matrixBuffer = new ProjectionMatrixBuffer("meteor-projection-matrix");
 
+    private static final Map<String, String> TRANSLATIONS = new HashMap<>();
+    private static final Gson GSON = new Gson();
+
     private Utils() {
+    }
+
+    public static void loadTranslations() {
+        TRANSLATIONS.clear();
+        try (InputStream in = Utils.class.getResourceAsStream("/assets/meteor-client/lang/zh_cn_full.json")) {
+            if (in != null) {
+                Map<String, String> map = GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), new TypeToken<Map<String, String>>() {}.getType());
+                if (map != null) TRANSLATIONS.putAll(map);
+            }
+        } catch (Exception e) {
+            MeteorClient.LOG.error("Failed to load Chinese translations.", e);
+        }
+    }
+
+    public static String tr(String english) {
+        return TRANSLATIONS.getOrDefault(english, english);
+    }
+
+    public static String trIfPresent(String text) {
+        String translated = TRANSLATIONS.get(text);
+        return translated != null ? translated : text;
     }
 
     @PreInit

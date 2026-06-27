@@ -10,6 +10,7 @@ import meteordevelopment.meteorclient.gui.DefaultSettingsWidgetFactory;
 import meteordevelopment.meteorclient.gui.GuiTheme;
 import meteordevelopment.meteorclient.gui.WidgetScreen;
 import meteordevelopment.meteorclient.gui.renderer.packer.GuiTexture;
+import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.gui.themes.meteor.widgets.*;
 import meteordevelopment.meteorclient.gui.themes.meteor.widgets.input.WMeteorDropdown;
 import meteordevelopment.meteorclient.gui.themes.meteor.widgets.input.WMeteorSlider;
@@ -187,18 +188,19 @@ public class MeteorGuiTheme extends GuiTheme {
 
     @Override
     public WWindow window(WWidget icon, String title) {
-        return w(new WMeteorWindow(icon, title));
+        return w(new WMeteorWindow(icon, Utils.trIfPresent(title)));
     }
 
     @Override
     public WLabel label(String text, boolean title, double maxWidth) {
-        if (maxWidth == 0 && !text.contains("\n")) return w(new WMeteorLabel(text, title));
-        return w(new WMeteorMultiLabel(text, title, maxWidth));
+        String t = Utils.trIfPresent(text);
+        if (maxWidth == 0 && !t.contains("\n")) return w(new WMeteorLabel(t, title));
+        return w(new WMeteorMultiLabel(t, title, maxWidth));
     }
 
     @Override
     public WHorizontalSeparator horizontalSeparator(String text) {
-        return w(new WMeteorHorizontalSeparator(text));
+        return w(new WMeteorHorizontalSeparator(text != null ? Utils.trIfPresent(text) : null));
     }
 
     @Override
@@ -208,12 +210,16 @@ public class MeteorGuiTheme extends GuiTheme {
 
     @Override
     protected WButton button(String text, GuiTexture texture) {
-        return w(new WMeteorButton(text, texture));
+        return w(new WMeteorButton(text != null ? Utils.trIfPresent(text) : null, texture));
     }
 
     @Override
     protected WConfirmedButton confirmedButton(String text, String confirmText, GuiTexture texture) {
-        return w(new WMeteorConfirmedButton(text, confirmText, texture));
+        return w(new WMeteorConfirmedButton(
+            text != null ? Utils.trIfPresent(text) : null,
+            confirmText != null ? Utils.trIfPresent(confirmText) : null,
+            texture
+        ));
     }
 
     @Override
@@ -258,7 +264,7 @@ public class MeteorGuiTheme extends GuiTheme {
 
     @Override
     public WTooltip tooltip(String text) {
-        return w(new WMeteorTooltip(text));
+        return w(new WMeteorTooltip(Utils.trIfPresent(text)));
     }
 
     @Override
@@ -268,7 +274,7 @@ public class MeteorGuiTheme extends GuiTheme {
 
     @Override
     public WSection section(String title, boolean expanded, WWidget headerWidget) {
-        return w(new WMeteorSection(title, expanded, headerWidget));
+        return w(new WMeteorSection(title != null ? Utils.trIfPresent(title) : null, expanded, headerWidget));
     }
 
     @Override

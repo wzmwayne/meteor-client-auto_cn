@@ -34,8 +34,8 @@ public abstract class Command {
 
     public Command(String name, String description, String... aliases) {
         this.name = name;
-        this.title = Utils.nameToTitle(name);
-        this.description = description;
+        this.title = Utils.tr(Utils.nameToTitle(name));
+        this.description = Utils.tr(description);
         this.aliases = List.of(aliases);
     }
 

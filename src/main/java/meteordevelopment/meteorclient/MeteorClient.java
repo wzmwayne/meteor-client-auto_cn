@@ -114,6 +114,9 @@ public class MeteorClient implements ClientModInitializer {
             }
         });
 
+        // Load Chinese translations (must happen before PreInit so modules/settings use translated strings)
+        Utils.loadTranslations();
+
         // Register init classes
         ReflectInit.registerPackages();
 

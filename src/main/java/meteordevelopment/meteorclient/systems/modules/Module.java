@@ -57,8 +57,8 @@ public abstract class Module implements ISerializable<Module>, Comparable<Module
         this.mc = Minecraft.getInstance();
         this.category = category;
         this.name = name;
-        this.title = Utils.nameToTitle(name);
-        this.description = description;
+        this.title = Utils.tr(Utils.nameToTitle(name));
+        this.description = Utils.tr(description);
         this.aliases = aliases;
         this.color = Color.fromHsv(Utils.random(0.0, 360.0), 0.35, 1);
 

@@ -9,13 +9,15 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Supplier;
 
+import meteordevelopment.meteorclient.utils.Utils;
+
 public class Category {
     public final String name;
     public final Supplier<ItemStack> icon;
     private final int nameHash;
 
     public Category(String name, Supplier<ItemStack> icon) {
-        this.name = name;
+        this.name = Utils.tr(name);
         this.nameHash = name.hashCode();
         this.icon = icon == null ? () -> ItemStack.EMPTY : icon;
     }
