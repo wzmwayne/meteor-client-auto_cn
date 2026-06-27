@@ -2,16 +2,6 @@ name: Translate & Build (Chinese)
 
 on:
   workflow_dispatch:
-    inputs:
-      api:
-        description: 'Translation API'
-        required: true
-        default: 'google'
-        type: choice
-        options:
-          - google
-          - deepl
-          - libre
 
 jobs:
   translate-and-build:
@@ -20,23 +10,14 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
-        with:
-          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Install dependencies
-        run: |
-          pip install deep-translator
-
       - name: Translate to Chinese
-        run: python scripts/translate.py --api ${{ github.event.inputs.api }}
-        env:
-          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
-          LIBRETRANSLATE_URL: ${{ secrets.LIBRETRANSLATE_URL }}
+        run: python scripts/translate.py
 
       - name: Set up JDK 25
         uses: actions/setup-java@v5
