@@ -18,6 +18,7 @@ public class CustomTextRenderer implements TextRenderer {
     public static final Color SHADOW_COLOR = new Color(60, 60, 60, 180);
 
     private final MeshBuilder mesh = new MeshBuilder(MeteorRenderPipelines.UI_TEXT);
+    private final VanillaTextRenderer vanillaFallback = VanillaTextRenderer.INSTANCE;
 
     public final FontFace fontFace;
 
@@ -28,6 +29,14 @@ public class CustomTextRenderer implements TextRenderer {
     private boolean scaleOnly;
     private double fontScale = 1;
     private double scale = 1;
+
+    private static boolean containsCJK(String text) {
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (Character.isIdeographic(c) || (c >= '\u4E00' && c <= '\u9FFF') || (c >= '\u3400' && c <= '\u4DBF') || (c >= '\uF900' && c <= '\uFAFF')) return true;
+        }
+        return false;
+    }
 
     public CustomTextRenderer(FontFace fontFace) throws IOException {
         this.fontFace = fontFace;
@@ -76,6 +85,7 @@ public class CustomTextRenderer implements TextRenderer {
     @Override
     public double getWidth(String text, int length, boolean shadow) {
         if (text.isEmpty()) return 0;
+        if (containsCJK(text)) return vanillaFallback.getWidth(text, length, shadow);
 
         Font font = building ? this.font : fonts[0];
         return (font.getWidth(text, length) + (shadow ? 1 : 0)) * scale / 1.5;
@@ -89,6 +99,8 @@ public class CustomTextRenderer implements TextRenderer {
 
     @Override
     public double render(String text, double x, double y, Color color, boolean shadow) {
+        if (containsCJK(text)) return vanillaFallback.render(text, x, y, color, shadow);
+
         boolean wasBuilding = building;
         if (!wasBuilding) begin();
 
