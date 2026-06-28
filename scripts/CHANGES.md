@@ -58,7 +58,7 @@ This document describes all modifications made in this branch to the original Me
 | Source | Count |
 |--------|-------|
 | Hardcoded direct translations (translations.json) | 3213 |
-| Google API fallback (untranslated at CI time) | varies |
+| Google API fallback (untranslated at CI time) | ~0 (all hardcoded) |
 | Still English (intentional: +, -, :, {} {} etc.) | 7 |
 
 No pattern rules are used. Every translation is a direct English→Chinese string pair.
@@ -76,11 +76,15 @@ No pattern rules are used. Every translation is a direct English→Chinese strin
 
 ### Changes
 
-**Config.java** — `customFont` default set to `false`. The custom font renderer (`CustomTextRenderer`) uses a TrueType atlas that only contains Latin/Greek/Cyrillic glyphs — CJK characters would render as invisible spaces. Using the vanilla Minecraft font renderer (`VanillaTextRenderer`) instead ensures CJK text displays correctly.
+**Config.java** — `customFont` default stays `true`. No renderer change.
 
-**Hud.java** — Same `customFont` default set to `false`.
+**Hud.java** — Same, `customFont` default stays `true`.
 
-No other font renderer modifications. All text (both English and Chinese) uses `VanillaTextRenderer` for consistent metrics and correct CJK rendering.
+**Fonts.java** — Added "WenQuanYi Micro Hei" (subset, 309 KB) to `BUILTIN_FONTS` and set it as the new default. This font contains all CJK glyphs needed by the translations (946 unique CJK characters + Latin/Greek/Cyrillic).
+
+**Font.java** — Added `CJK Unified Ideographs` glyph range (U+4E00–U+9FFF, 20992 codepoints) to the STB TrueType glyph packing. The WenQuanYi font has these glyphs, so they are now packed into the custom renderer's texture atlas and render correctly.
+
+No other font changes. The same `CustomTextRenderer` handles both Latin and CJK text with consistent metrics.
 
 ---
 
@@ -196,11 +200,15 @@ Workflow is manually triggered (`workflow_dispatch`). Steps:
 
 ### 修改内容
 
-**Config.java** — `customFont` 默认值设为 `false`。自定义字体渲染器 (`CustomTextRenderer`) 的 TrueType 图集中仅包含拉丁/希腊/西里尔字形，CJK 字符会显示为不可见空格。改用原版 Minecraft 字体渲染器 (`VanillaTextRenderer`) 确保 CJK 文本正确显示。
+**Config.java** — `customFont` 默认值保持 `true`，不更换渲染器。
 
-**Hud.java** — 同上，`customFont` 默认值设为 `false`。
+**Hud.java** — 同上，`customFont` 默认值保持 `true`。
 
-未对其他字体渲染器代码做修改。所有文本（英文和中文）统一使用 `VanillaTextRenderer`，保证一致的度量标准和正确的中文渲染。
+**Fonts.java** — 添加 "WenQuanYi Micro Hei"（子集版，309 KB）到 `BUILTIN_FONTS` 并设为新默认字体。该字体包含翻译所需的所有 CJK 字形（946 个不重复 CJK 字符 + 拉丁/希腊/西里尔字母）。
+
+**Font.java** — 添加 `CJK 统一表意文字` 字形范围（U+4E00–U+9FFF，20992 个码点）到 STB TrueType 字形打包中。WenQuanYi 字体包含这些字形，因此它们会被打包到自定义渲染器的纹理图集中，正确渲染。
+
+未做其他字体修改。同一个 `CustomTextRenderer` 同时处理拉丁和 CJK 文本，度量标准一致。
 
 ---
 
