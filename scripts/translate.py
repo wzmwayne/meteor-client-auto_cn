@@ -36,189 +36,6 @@ PAT_CHAT_MSG = re.compile(r'\.(?:info|warning|error)\(\s*"([^"]+)"')
 PAT_COLOR_NAME = re.compile(r'color\(\s*[\w.]+,\s*"([^"]*)",\s*"([^"]+)"')
 PAT_THREESTATE = re.compile(r'new\s+ThreeStateColorSetting\(\s*[\w.]+,\s*"([^"]+)",')
 
-PREFIX_RULES = [
-    ("Whether or not to render ", "是否渲染"),
-    ("Whether to render ", "是否渲染"),
-    ("Whether or not ", "是否"),
-    ("Whether ", "是否"),
-    ("Automatically ", "自动"),
-    ("Disables ", "禁用"),
-    ("Disable ", "禁用"),
-    ("Enables ", "启用"),
-    ("Enable ", "启用"),
-    ("Allows you to ", "允许你"),
-    ("Allows ", "允许"),
-    ("Prevents you from ", "防止你"),
-    ("Prevents ", "防止"),
-    ("The maximum ", "最大"),
-    ("The minimum ", "最小"),
-    ("Doesn", "不"),
-    ("Don", "不要"),
-    ("Cannot ", "无法"),
-    ("Could not ", "无法"),
-    ("Failed to ", "失败"),
-    ("Only when ", "仅当"),
-    ("Only if ", "仅当"),
-    ("Only ", "仅"),
-    ("If enabled, ", "若启用，"),
-    ("If enabled ", "若启用"),
-    ("If ", "若"),
-    ("Will ", "将"),
-    ("Sends a ", "发送"),
-    ("Sends ", "发送"),
-    ("Swaps ", "切换"),
-    ("Swap ", "切换"),
-    ("Shows ", "显示"),
-    ("Show ", "显示"),
-    ("Renders ", "渲染"),
-    ("Render ", "渲染"),
-    ("Displays ", "显示"),
-    ("Display ", "显示"),
-    ("Places ", "放置"),
-    ("Place ", "放置"),
-    ("Blocks ", "阻止"),
-    ("Block ", "阻止"),
-    ("Ignores ", "忽略"),
-    ("Ignore ", "忽略"),
-    ("Pauses ", "暂停"),
-    ("Pause ", "暂停"),
-    ("Hides ", "隐藏"),
-    ("Hide ", "隐藏"),
-    ("Select ", "选择"),
-    ("Changes ", "更改"),
-    ("Uses ", "使用"),
-    ("Use ", "使用"),
-    ("Adds ", "添加"),
-    ("Add ", "添加"),
-    ("Sets ", "设置"),
-    ("Set ", "设置"),
-    ("Removes ", "移除"),
-    ("Remove ", "移除"),
-    ("Opens ", "打开"),
-    ("Open ", "打开"),
-    ("Copies ", "复制"),
-    ("Copy ", "复制"),
-    ("Saves ", "保存"),
-    ("Save ", "保存"),
-    ("Resets ", "重置"),
-    ("Reset ", "重置"),
-    ("Clears ", "清除"),
-    ("Clear ", "清除"),
-    ("Closes ", "关闭"),
-    ("Close ", "关闭"),
-    ("Starts ", "启动"),
-    ("Start ", "启动"),
-    ("Stops ", "停止"),
-    ("Stop ", "停止"),
-    ("Cancels ", "取消"),
-    ("Cancel ", "取消"),
-    ("Creates ", "创建"),
-    ("Create ", "创建"),
-    ("Deletes ", "删除"),
-    ("Delete ", "删除"),
-    ("Takes ", "获取"),
-    ("Take ", "获取"),
-    ("Loads ", "加载"),
-    ("Load ", "加载"),
-    ("Exports ", "导出"),
-    ("Export ", "导出"),
-    ("Imports ", "导入"),
-    ("Import ", "导入"),
-    ("Generates ", "生成"),
-    ("Generate ", "生成"),
-    ("Searches ", "搜索"),
-    ("Search ", "搜索"),
-    ("Spoofs ", "伪装"),
-    ("Limits ", "限制"),
-    ("Prints ", "打印"),
-    ("Provides ", "提供"),
-    ("Stacks ", "堆叠"),
-    ("Highlights ", "高亮"),
-    ("Restarts ", "重启"),
-    ("Has ", "有"),
-    ("Holds ", "持有"),
-    ("Modifies ", "修改"),
-    ("Attempts to ", "尝试"),
-    ("Determines ", "确定"),
-    ("Tries to ", "尝试"),
-    ("Works ", "工作"),
-    ("Specify ", "指定"),
-    ("Expands ", "扩大"),
-    ("Reduces ", "减少"),
-    ("Improves ", "改善"),
-    ("Controls ", "控制"),
-    ("Calculates ", "计算"),
-    ("Finds ", "寻找"),
-    ("Predicts ", "预测"),
-    ("Predict ", "预测"),
-    ("Rotates ", "旋转"),
-    ("Boosts ", "增强"),
-    ("Spins ", "旋转"),
-    ("Replaces ", "替换"),
-    ("Replace ", "替换"),
-    ("Replenish ", "补充"),
-    ("Helps you ", "帮助你"),
-    ("Gives you ", "为你"),
-    ("Tweaks ", "调整"),
-    ("Decide ", "决定"),
-    ("Require ", "需要"),
-    ("Performs ", "执行"),
-    ("No ", "无"),
-    ("Yes ", "是"),
-    ("Color of ", ""),
-    ("Color for ", ""),
-    ("Color when ", ""),
-    ("Color Color", ""),
-    ("Modifiers ", "修饰"),
-    ("Error while ", "写入"),
-    ("Error ", "错误"),
-    ("How many ", "多少个"),
-    ("How much ", "多少"),
-    ("How long ", "多长时间"),
-    ("How fast ", "速度"),
-    ("How far ", "多远"),
-    ("How close ", "多近"),
-    ("How often ", "频率"),
-]
-
-SUFFIX_RULES = [
-    (" Mode", "模式"),
-    (" mode", "模式"),
-    (" Method", "方法"),
-    (" Speed", "速度"),
-    (" Delay", "延迟"),
-    (" Range", "范围"),
-    (" Color", "颜色"),
-    (" Multiplier", "倍率"),
-    (" Radius", "半径"),
-    (" Distance", "距离"),
-    (" Threshold", "阈值"),
-    (" Type", "类型"),
-    (" Amount", "数量"),
-    (" Size", "大小"),
-    (" Height", "高度"),
-    (" Width", "宽度"),
-    (" Length", "长度"),
-    (" Depth", "深度"),
-    (" Scale", "缩放"),
-    (" Count", "计数"),
-    (" Value", "值"),
-    (" Opacity", "不透明度"),
-    (" Priority", "优先级"),
-    (" Interval", "间隔"),
-    (" Limit", "限制"),
-]
-
-
-def matches_pattern(s):
-    for p, repl in PREFIX_RULES:
-        if s.startswith(p):
-            return True, f"prefix({repl})"
-    for suf, repl in SUFFIX_RULES:
-        if s.endswith(suf) and len(s) > len(suf):
-            return True, f"suffix({repl})"
-    return False, None
-
 
 def name_to_title(name):
     return " ".join(w.capitalize() for w in name.split("-"))
@@ -351,18 +168,11 @@ def main():
     else:
         translations = {}
 
-    # Classify each filtered string
     table_hit = []
-    pattern_hit = []
     need_api = []
-
     for s in filtered:
-        is_pattern, _ = matches_pattern(s)
-        in_table = s in translations and translations[s] and translations[s] != s
-        if in_table and not is_pattern:
+        if s in translations and translations[s] and translations[s] != s:
             table_hit.append(s)
-        elif in_table and is_pattern:
-            pattern_hit.append(s)
         else:
             need_api.append(s)
 
@@ -396,16 +206,13 @@ def main():
     total = len(final_map)
     translated_count = sum(1 for k, v in final_map.items() if k != v)
     still_english = total - translated_count
-
-    # Count API success vs fail
     api_ok = sum(1 for s in need_api if s in google_results and google_results[s] and google_results[s] != s)
     api_fail = len(need_api) - api_ok
 
     print(f"  Translated: {translated_count}/{total}", file=sys.stderr)
-    print(f"  - From hardcoded table (direct): {len(table_hit)}", file=sys.stderr)
-    print(f"  - From pattern-based rules:      {len(pattern_hit)}", file=sys.stderr)
-    print(f"  - From Google API (ok/fail):     {api_ok}/{api_fail}", file=sys.stderr)
-    print(f"  - Still English (fallback):      {still_english}", file=sys.stderr)
+    print(f"  - From translations.json: {len(table_hit)}", file=sys.stderr)
+    print(f"  - From Google API (ok/fail): {api_ok}/{api_fail}", file=sys.stderr)
+    print(f"  - Still English (fallback): {still_english}", file=sys.stderr)
     print("Done!", file=sys.stderr)
 
     summary = [
@@ -414,17 +221,16 @@ def main():
         f"| Category | Count |",
         f"|----------|-------|",
         f"| Total strings | {total} |",
-        f"| Translated (direct table) | {len(table_hit)} |",
-        f"| Translated (pattern rules) | {len(pattern_hit)} |",
-        f"| Translated (Google API) | {api_ok} |",
+        f"| From translations.json | {len(table_hit)} |",
+        f"| From Google API | {api_ok} |",
         f"| API failures | {api_fail} |",
-        f"| Still English (fallback) | {still_english} |",
+        f"| Still English | {still_english} |",
         f"| **Fully translated** | **{translated_count}** |",
         "",
     ]
 
     if still_english > 0:
-        summary.append("### Still English (fallback)")
+        summary.append("### Still English")
         summary.append("")
         for s in filtered:
             v = final_map.get(s, s)
@@ -433,7 +239,7 @@ def main():
         summary.append("")
 
     if api_ok > 0:
-        summary.append("### API Translated Strings (least safe)")
+        summary.append("### API Translated Strings")
         summary.append("")
         for s in need_api:
             if s in google_results and google_results[s] and google_results[s] != s:

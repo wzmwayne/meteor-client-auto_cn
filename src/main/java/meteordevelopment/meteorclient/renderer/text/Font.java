@@ -41,8 +41,7 @@ public class Font {
             STBTTPackedchar.create(128), // Latin Extended-A
             STBTTPackedchar.create(144), // Greek and Coptic
             STBTTPackedchar.create(256), // Cyrillic
-            STBTTPackedchar.create(1), // infinity symbol
-            STBTTPackedchar.create(20992) // CJK Unified Ideographs (U+4E00 - U+9FFF)
+            STBTTPackedchar.create(1) // infinity symbol
         };
 
         // create and initialise packing context
@@ -56,8 +55,7 @@ public class Font {
         packRange.put(STBTTPackRange.create().set(height, 256, null, 128, cdata[2], (byte) 2, (byte) 2));
         packRange.put(STBTTPackRange.create().set(height, 880, null, 144, cdata[3], (byte) 2, (byte) 2));
         packRange.put(STBTTPackRange.create().set(height, 1024, null, 256, cdata[4], (byte) 2, (byte) 2));
-        packRange.put(STBTTPackRange.create().set(height, 8734, null, 1, cdata[5], (byte) 2, (byte) 2));
-        packRange.put(STBTTPackRange.create().set(height, 0x4E00, null, 20992, cdata[6], (byte) 2, (byte) 2));
+        packRange.put(STBTTPackRange.create().set(height, 8734, null, 1, cdata[5], (byte) 2, (byte) 2)); // lol
         packRange.flip();
 
         // write and finish

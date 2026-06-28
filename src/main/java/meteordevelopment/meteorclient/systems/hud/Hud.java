@@ -46,7 +46,7 @@ public class Hud extends System<Hud> implements Iterable<HudElement> {
     private final Setting<Boolean> customFont = sgGeneral.add(new BoolSetting.Builder()
         .name("custom-font")
         .description("Text will use custom font.")
-        .defaultValue(true)
+        .defaultValue(false)
         .onChanged(_ -> {
             for (HudElement element : elements) element.onFontChanged();
         })
